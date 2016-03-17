@@ -1,0 +1,98 @@
+Test 0	StringLength	Successful
+Test 1	FindCharacter	Successful
+Test 2	StringCompare	Successful
+Test 3	StringAppend	Successful
+Test 4	StringPrepend	Successful
+Test 5	StringCstyle	Successful
+Test 6	StringLowercase	Successful
+Test 7	StringUppercase	Successful
+Test 8	FindInString	Successful
+Test 9	FindStringFromIndex	Successful
+Test 10	SubStringReplace	Successful
+Test 11	SubStringReplace	Successful
+Successful 100%
+
+Test 0	StringLength	Successful
+Test 1	FindCharacter	Successful
+Test 2	StringCompare	Successful
+Test 3	StringAppend	Successful
+Test 4	StringPrepend	Successful
+Test 5	StringCstyle	Successful
+Test 6	StringLowercase	Successful
+Test 7	StringUppercase	Successful
+Test 8	FindInString	Successful
+Test 9	FindStringFromIndex	Successful
+Test 10	SubStringReplace	Successful
+Test 11	SubStringReplace	Successful
+Successful 100%
+
+Test 0	StringLength	Successful
+Test 1	FindCharacter	Successful
+Test 2	StringCompare	Successful
+Test 3	StringAppend	Successful
+Test 4	StringPrepend	Successful
+Test 5	StringCstyle	Successful
+Test 6	StringLowercase	Successful
+Test 7	StringUppercase	Successful
+Test 8	FindInString	Successful
+Test 9	FindStringFromIndex	Successful
+Test 10	SubStringReplace	Successful
+Test 11	SubStringReplace	Successful
+Successful 100%
+
+Test 0	StringLength	Successful
+Test 1	FindCharacter	Successful
+Test 2	StringCompare	Successful
+Test 3	StringAppend	Successful
+Test 4	StringPrepend	Successful
+Test 5	StringCstyle	Successful
+Test 6	StringLowercase	Successful
+Test 7	StringUppercase	Successful
+Test 8	FindInString	Successful
+Test 9	FindStringFromIndex	Successful
+Test 10	SubStringReplace	Successful
+Test 11	SubStringReplace	Successful
+Successful 100%
+
+Test 0	StringLength	Successful
+Test 1	FindCharacter	Successful
+Test 2	StringCompare	Successful
+Test 3	StringAppend	Successful
+Test 4	StringPrepend	Successful
+Test 5	StringCstyle	Successful
+Test 6	StringLowercase	Successful
+Test 7	StringUppercase	Successful
+Test 8	FindInString	Successful
+Test 9	FindStringFromIndex	Successful
+Test 10	SubStringReplace	Successful
+Test 11	SubStringReplace	Successful
+Successful 100%
+
+Test 0	StringLength	Successful
+Test 1	FindCharacter	Successful
+Test 2	StringCompare	Successful
+Test 3	StringAppend	Successful
+Test 4	StringPrepend	Successful
+Test 5	StringCstyle	Successful
+Test 6	StringLowercase	Successful
+Test 7	StringUppercase	Successful
+Test 8	FindInString	Successful
+Test 9	FindStringFromIndex	Successful
+Test 10	SubStringReplace	Successful
+Test 11	SubStringReplace	Successful
+Successful 100%
+
+Test 0	StringLength	Successful
+Test 1	FindCharacter	Successful
+Test 2	StringCompare	Successful
+Test 3	StringAppend	Successful
+Test 4	StringPrepend	Successful
+Test 5	StringCstyle	Successful
+Test 6	StringLowercase	Successful
+Test 7	StringUppercase	Successful
+Test 8	FindInString	Successful
+Test 9	FindStringFromIndex	Successful
+Test 10	SubStringReplace	Successful
+Test 11	SubStringReplace	Successful
+Successful 100%
+
