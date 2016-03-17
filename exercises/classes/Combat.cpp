@@ -8,14 +8,11 @@ int SelectFighter(Zombie zombieArray[], int length)
 {
 	int selected = 0;
 	selected = rand() % length;
-	if (CheckHealth(zombieArray, selected))
+	while(!CheckHealth(zombieArray, selected))
 	{
-		return selected;
+		selected = rand() % length;
 	}
-	else
-	{
-		SelectFighter(zombieArray, length);
-	}
+	return selected;
 }
 
 bool CheckHealth(Zombie zombieArray[], int zombie)
@@ -71,5 +68,34 @@ void PrintBattleResult(Zombie zombieArray[], int winner, int loser, int battleNu
 
 int CountTheDead(Zombie zombieArray[], int length)
 {
-
+	int count = 0;
+	for (int i = 0; i < length; i++)
+	{
+		if (zombieArray[i].GetHealth() <= 0)
+		{
+			count++;
+		}
+	}
+	return count;
+}
+void Winner(Zombie zombieArray[], int length)
+{
+	int winner = 0;
+	for (int i = 0; i < length; i++)
+	{
+		if (zombieArray[i].GetHealth() <= 0)
+		{
+			continue;
+		}
+		else
+		{
+			winner = i;
+		}
+	}
+	cout << "The Final Suviver was the:";
+	cout << zombieArray[winner].GetOccupation() << endl;
+	cout << " Strength = " << zombieArray[winner].GetStrength() << endl;
+	cout << " Health = " << zombieArray[winner].GetHealth() << endl;
+	cout << " Battles Won = " << zombieArray[winner].GetbattlesWon() << endl;
+	cout << " Battles Lost = " << zombieArray[winner].GetbattlesLost() << endl;
 }

@@ -40,3 +40,23 @@ void Zombie::SetHealth(int health)
 {
 	Zombie::health = health;
 }
+
+int Zombie::GetbattlesWon()
+{
+	return m_battlesWon;
+}
+
+void Zombie::SetbattlesWon(int battlesWon)
+{
+	m_battlesWon += battlesWon;
+}
+
+int Zombie::GetbattlesLost()
+{
+	return m_battlesLost;
+}
+
+void Zombie::SetbattlesLost(int battlesLost)
+{
+	m_battlesLost += battlesLost;
+}

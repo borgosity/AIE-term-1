@@ -11,8 +11,7 @@ string Occupations(int selector)
 	string job = jobs[selector];
 	return job;
 }
-
-int main()
+void GameLoop()
 {
 	const int zombieNum = 10;
 	Zombie zombieArray[zombieNum];
@@ -22,7 +21,7 @@ int main()
 	int combatResult = 0;
 	int loser = 0;
 	int battleNum = 0;
-	bool finished = true;
+	bool finished = false;
 
 	for (int i = 0; i < zombieNum; i++)
 	{
@@ -31,13 +30,13 @@ int main()
 		zombie.SetStrength(rand() % 100 + 30);
 		zombie.SetOccupation(Occupations(i));
 		zombieArray[i] = zombie;
-		
+
 		cout << " Occupation = " << zombieArray[i].GetOccupation() << endl;
 		cout << " Strength = " << zombieArray[i].GetStrength() << endl;
 		cout << " Health = " << zombieArray[i].GetHealth() << endl;
 		cout << "========================" << endl;
 	}
-	while (finished)
+	while (!finished)
 	{
 		zombie1 = SelectFighter(zombieArray, zombieNum);
 		zombie2 = SelectFighter(zombieArray, zombieNum);
@@ -52,13 +51,38 @@ int main()
 		battleNum++;
 		if (combatResult == zombie1)
 		{
+			zombieArray[zombie1].SetbattlesWon(1);
+			zombieArray[zombie2].SetbattlesLost(1);
 			loser = zombie2;
 		}
 		else
 		{
+			zombieArray[zombie2].SetbattlesWon(1);
+			zombieArray[zombie1].SetbattlesLost(1);
 			loser = zombie1;
 		}
 		PrintBattleResult(zombieArray, combatResult, loser, battleNum);
-		finished = false;
+		if (CountTheDead(zombieArray, zombieNum) < 9)
+		{
+			finished = false;
+		}
+		else
+		{
+			finished = true;
+			Winner(zombieArray, zombieNum);
+		}
+
+	}
+
+}
+
+int main()
+{
+	int again = 0;
+
+	while (again == 0)
+	{
+		GameLoop();
+		cin >> again;
 	}
 }
