@@ -4,12 +4,13 @@ class Item
 {
 public:
 	Item();
-	Item(char * name, int weight, bool stackable);
-	std::string GetName();
-	int GetWeight();
-	bool IsStackable();
-	int GetStackCount();
-	int SetStackCount();
+	Item(const char * name, int weight, bool stackable);
+	Item(std::string name, int weight, bool stackable);
+	std::string GetName() const;
+	int GetWeight() const;
+	bool IsStackable() const;
+	int GetStackCount() const;
+	int SetStackCount(int count);
 	~Item();
 private:
 	std::string m_name;

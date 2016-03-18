@@ -2,6 +2,7 @@
 #include <string>
 #include "Zombie.h"
 #include "Combat.h"
+#include "UnitTests.h"
 
 using namespace std;
 
@@ -78,11 +79,15 @@ void GameLoop()
 
 int main()
 {
-	int again = 0;
+	//int again = 0;
 
-	while (again == 0)
-	{
-		GameLoop();
-		cin >> again;
-	}
+	//while (again == 0)
+	//{
+	//	GameLoop();
+	//	cin >> again;
+	//}
+	//createItem();
+	addToInventoryTest();
+
+	std::cout << "\n\nfinished!!\n";
 }

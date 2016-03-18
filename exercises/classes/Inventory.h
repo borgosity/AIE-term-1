@@ -1,18 +1,21 @@
 #pragma once
 #include "Item.h"
-#include <list>
+#include <vector>
+#include <memory>
 
 class Inventory
 {
 public:
 	Inventory();
 	~Inventory();
-	void AddItem(Item & item);
-	void RemoveItem(Item & item);
-	Item GetItem(Item & item);
-	std::list<Item> GetInventory();
+	void AddItem(std::shared_ptr<Item> & item);
+	void RemoveItem(std::shared_ptr<Item> & item);
+	std::shared_ptr<Item> GetItem(std::shared_ptr<Item> & item) const;
+	std::vector<std::shared_ptr<Item>> GetInventory() const;
+	void PrintInventory() const;
+	int GetWeight() const;
 private:
-	Item m_item;
-	std::list<Item> m_Items;
+	std::shared_ptr<Item> m_item;
+	std::vector<std::shared_ptr<Item>> m_itemList;
 };
 
