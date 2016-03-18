@@ -87,7 +87,10 @@ int main()
 	//	cin >> again;
 	//}
 	//createItem();
-	addToInventoryTest();
+	
+	//addToInventoryTest();
+	
+	addToInventoryTest2();
 
 	std::cout << "\n\nfinished!!\n";
 }

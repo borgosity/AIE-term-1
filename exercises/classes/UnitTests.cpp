@@ -26,6 +26,7 @@ void createItem()
 void addToInventoryTest()
 {
 	auto itemList = std::make_shared<Inventory>();
+
 	std::string hatName = "hat";
 	std::string breadName = "bread";
 	auto Hat = std::make_shared<Item>(hatName, 2, true);
@@ -38,7 +39,6 @@ void addToInventoryTest()
 	itemList.get()->AddItem(Bag);
 	itemList.get()->AddItem(std::make_shared<Item>("blanket", 4, true));
 	itemList.get()->AddItem(std::make_shared<Item>("jacket", 5, true));
-
 
 	//std::vector<std::shared_ptr<Item>> tempList = itemList->GetInventory();
 
@@ -59,6 +59,35 @@ void addToInventoryTest()
 	//	std::cout << it2->get()->GetName() << "\n";
 	//	it2++;
 	//}
+	itemList->PrintInventory();
+
+	std::cout << "\n" << itemList->GetWeight() << std::endl;
+}
+
+void addToInventoryTest2()
+{
+	auto itemList = std::make_shared<Inventory>();
+	std::shared_ptr<Inventory> itemList2;
+
+	std::string hatName = "hat";
+	std::string breadName = "bread";
+	auto Hat = std::make_shared<Item>(hatName, 2, true);
+	auto Bag = std::make_shared<Item>("bag", 3, false);
+
+	itemList->AddItem(std::make_shared<Item>("milk", 5, false));
+	itemList->AddItem(std::make_shared<Item>(breadName, 2, false));
+	itemList->AddItem(std::make_shared<Item>(hatName, 2, true));
+	itemList->AddItem(Hat);
+	itemList->AddItem(Bag);
+	itemList->AddItem(std::make_shared<Item>("blanket", 4, true));
+	itemList->AddItem(std::make_shared<Item>("jacket", 5, true));
+
+	itemList->PrintInventory();
+
+	std::cout << std::endl;
+
+	itemList->RemoveItem(Bag);
+
 	itemList->PrintInventory();
 
 	std::cout << "\n" << itemList->GetWeight() << std::endl;
