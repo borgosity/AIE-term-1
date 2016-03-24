@@ -22,7 +22,9 @@ void createItem()
 	}
 		
 }
-
+/*
+   OLD version that requires ->get()
+*/
 void addToInventoryTest()
 {
 	auto itemList = std::make_shared<Inventory>();
