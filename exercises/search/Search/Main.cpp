@@ -126,10 +126,11 @@ void BSearchTest()
 
 int main()
 {
-
+	std::cout << "\nBinary Search\n\n";
 	BSearchTest();
+	std::cout << "\nLinear Search\n\n";
 	LSearchTest();
-	std::cout << "finished!!\n\n";
+	std::cout << "\nfinished!!\n\n";
 	std::cin.get();
 
 	return 0;
