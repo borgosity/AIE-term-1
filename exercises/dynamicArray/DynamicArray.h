@@ -4,6 +4,7 @@ template< typename T_ >
 class DynamicArray
 {
 public:
+	//DynamicArray();
 	DynamicArray(int growSize = 100);
 	~DynamicArray();
 	// assignment operator
@@ -11,16 +12,19 @@ public:
 	// copy constructor
 	DynamicArray(const DynamicArray& dynArrayObj);
 	// add to end
-	void AddToEnd(T_ & newElement);
+	void AddToEnd(const T_ & newElement);
 	// remove from end
-	void RemoveFromEnd(const int numElements = 1);
+	void RemoveFromEnd(int numElements = 1);
 	// add one or more to middle
-	void Insert(T_ & newElement, const int location);
+	void Insert(T_ & newElement, int location);
 	// remove one or more from the middle
 	// change space allocated (if less than current, then discard extra data)
 	// clear array
-	DynamicArray CreateArray(const int initial_size);
-	DynamicArray IcreaseArray(const int new_size);
+	// size
+	int size() const { return m_usedElements; };
+	// get element
+	T_ & getElement(int index);
+	T_ & operator[](int index) { return getElement(index); };
 private:
 	T_* m_arrayPtr;
 	int m_growSize;
@@ -32,6 +36,15 @@ private:
 	void shrink(const int shrinkBy = 1);
 	void insert();
 };
+
+//template<typename T_>
+//inline DynamicArray<T_>::DynamicArray()
+//{
+//	m_allocElements = 0;
+//	m_usedElements = 0;
+//	m_arrayPtr = nullptr;
+//	m_growSize = 10;
+//}
 
 template<typename T_>
 inline DynamicArray<T_>::DynamicArray(int growSize)
@@ -64,14 +77,20 @@ void DynamicArray<T_ >::operator=(const DynamicArray & dynArrayObj)
 template< typename T_ >
 inline DynamicArray<T_>::DynamicArray(const DynamicArray & dynArrayObj)
 {
+	// initialise some defaults
+	m_allocElements = 0;
+	m_usedElements = 0;
+	m_arrayPtr = nullptr;
+	m_growSize = 10;
+	// do a deep copy
 	copy(dynArrayObj);
 }
 
 template< typename T_ >
-void DynamicArray<T_ >::AddToEnd(T_ & newElement)
+void DynamicArray<T_ >::AddToEnd(const T_ & newElement)
 {
 	// check is adding an element is bigger than capacity
-	if (m_usedElements == m_allocElements)
+	if (m_usedElements >= m_allocElements)
 	{
 		//increase array size
 		grow();
@@ -83,13 +102,13 @@ void DynamicArray<T_ >::AddToEnd(T_ & newElement)
 }
 
 template<typename T_>
-inline void DynamicArray<T_>::RemoveFromEnd(const int numElements)
+inline void DynamicArray<T_>::RemoveFromEnd(int numElements)
 {
 	m_usedElements -= numElements;
 }
 
 template<typename T_>
-inline void DynamicArray<T_>::Insert(T_ & newElement, const int location)
+inline void DynamicArray<T_>::Insert(T_ & newElement, int location)
 {
 	int tempSize = m_usedElements;
 	tempSize -= location;
@@ -126,26 +145,15 @@ inline void DynamicArray<T_>::Insert(T_ & newElement, const int location)
 	tempArr = nullptr;
 }
 
-template< typename T_ >
-DynamicArray DynamicArray<T_ >::CreateArray(const int initial_size)
+template<typename T_>
+inline T_ & DynamicArray<T_>::getElement(int index)
 {
-	DynamicArray DynArray;
-	DynArray.m_arrayPtr = new DynamicArray[initial_size];
-	DynArray.m_allocElements = initial_size;
-	DynArray.m_usedElements = 0;
-	return DynArray;
-}
+	if (index < 0 || index >= m_usedElements)
+	{
+		std::cout << "out of bounds\n";
+	}
 
-template< typename T_ >
-DynamicArray DynamicArray<T_ >::IcreaseArray(const int new_size)
-{
-	DynamicArray* oldArray = m_arrayPtr;
-	DynamicArray DynArray;
-	DynArray.m_arrayPtr = new DynamicArray[new_size];
-	DynArray.m_allocElements = new_size;
-
-
-	return DynArray;
+	return m_arrayPtr[index];
 }
 
 template<typename T_>
@@ -167,9 +175,9 @@ inline void DynamicArray<T_>::copy(const DynamicArray & dynArrayObj)
 	if (dynArrayObj.m_usedElements > 0 && dynArrayObj.m_arrayPtr != nullptr)
 	{
 		// allocate new array to size of array to copy
-		m_arrayPtr = new T_[m_usedElements];
+		m_arrayPtr = new T_[m_allocElements];
 		// copy array
-		for (int i = 0; i < dynArrayObj.m_usedElements; i++)
+		for (int i = 0; i < dynArrayObj.m_allocElements; i++)
 		{
 			m_arrayPtr[i] = dynArrayObj.m_arrayPtr[i];
 		}
