@@ -10,6 +10,7 @@
 #include "animate.h"
 
 #include <conio.h>
+#include <thread>
 
 
 
@@ -28,7 +29,15 @@ LPCWSTR start_1 = L"images\\start_16.bmp";
 LPCWSTR start_2 = L"images\\start_24.bmp";
 LPCWSTR start_3 = L"images\\start_16_red.bmp";
 LPCWSTR start_4 = L"images\\start_24_red.bmp";
-
+void getUserInput()
+{
+	int c = 0;
+	while (c == 0)
+	{
+		c = getch();
+	}
+	std::cout << "button pressed = " << c << std::endl;
+}
 
 int main()
 {
@@ -78,15 +87,14 @@ int main()
 
 	// display start screen
 	/*std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n                        Start\n\n" << std::endl;*/
-	int c = 0;
-	while(c ==0)
-	{
-		anitmation(start);
-		std::cout << "hello" << std::endl;
-		c = 0;
-		c = getch();
-		std::cout << c << std::endl;
-	}
+	//int c = 0;
+	//while(c ==0)
+	//{
+	std::thread t_listen(getUserInput);
+	t_listen.join();
+	anitmation(start);
+
+	//}
 	// play game
 
 	// you died screen
