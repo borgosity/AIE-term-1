@@ -40,7 +40,7 @@ void anitmation(std::vector<LPCWSTR> images)
 		// filename, handle, ID, ulcX, ulcY, width, height   0,0 auto-adjusts
 		while (true)
 		{
-			for (int i = 0; i < 6; i++)
+			for (int i = 0; i < images.size(); i++)
 			{
 				// Text contains filename
 				hBitmap = (HBITMAP)LoadImage(0, images[i], IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
@@ -50,8 +50,6 @@ void anitmation(std::vector<LPCWSTR> images)
 				if (W || H) SetWindowPos(A, HWND_TOP, X, Y, W, H, SWP_DRAWFRAME);
 				std::cout << "hello image - " << i << std::endl;
 				std::this_thread::sleep_for(std::chrono::milliseconds(30));
-				//SendMessage(temp, WM_CLOSE, 0, 0);
-				//SendMessage(hConWnd, WM_CLOSE, 0, 0);
 				system("cls");
 			}
 		}
@@ -66,9 +64,7 @@ HWND GetConsoleWndHandle(void)
 	HWND hConWnd;
 	OSVERSIONINFO os;
 	char szTempTitleC[64];
-
 	LPWSTR szOriginalTitle = L"Souls Of Darkness III";
-
 	sprintf(szTempTitleC, "%u - %u", GetTickCount(), GetCurrentProcessId());
 	SetConsoleTitle(szOriginalTitle);
 	Sleep(40);
