@@ -1,106 +1,96 @@
+
+// std libraries
 #include <iostream>
 #include <vector>
 #include <stdio.h>
 #include <string.h>
-#include <windows.h>    // Win32Api Header File 
-
+#include <windows.h>  
 #include <thread>
 #include <chrono>
-
-#include "animate.h"
-
 #include <conio.h>
-#include <thread>
+
+// home grown
+#include "animate.h"
+#include "UserAction.h"
+#include "Console.h"
+#include "GameAnimations.h"
 
 
-
-LPCWSTR imagePath_0 = L"images\\image_0.bmp";
-LPCWSTR imagePath_1 = L"images\\image_1.bmp";
-LPCWSTR imagePath_2 = L"images\\image_2.bmp";
-LPCWSTR imagePath_3 = L"images\\image_3.bmp";
-LPCWSTR imagePath_4 = L"images\\image_4.bmp";
-LPCWSTR imagePath_5 = L"images\\image_5.bmp";
-LPCWSTR imagePath_6 = L"images\\image_6.bmp";
-LPCWSTR imagePath_7 = L"images\\image_7.bmp";
-LPCWSTR imagePath_8 = L"images\\image_8.bmp";
-
-LPCWSTR start_0 = L"images\\start_mono.bmp";
-LPCWSTR start_1 = L"images\\start_16.bmp";
-LPCWSTR start_2 = L"images\\start_24.bmp";
-LPCWSTR start_3 = L"images\\start_16_red.bmp";
-LPCWSTR start_4 = L"images\\start_24_red.bmp";
-void getUserInput()
+void getUserInput(UserAction * keypress)
 {
 	int c = 0;
 	while (c == 0)
 	{
-		c = getch();
+		c = _getch();
 	}
+	std::cout << keypress->m_keypress << "\n keypressed" << std::endl;
 	std::cout << "button pressed = " << c << std::endl;
+	keypress->m_keypress = true;
+	std::cout << keypress->m_keypress << " updated after press" << std::endl;
 }
 
-int main()
+void main()
 {
-	std::vector<LPCWSTR> images;
-	std::vector<LPCWSTR> start;
-	start.push_back(start_0);
-	start.push_back(start_0);
-	start.push_back(start_0);
-	start.push_back(start_0);
-	start.push_back(start_1);
-	start.push_back(start_2);
-	start.push_back(start_2);
-	start.push_back(start_1);
-	start.push_back(start_0);
-	start.push_back(start_0);
-	start.push_back(start_0);
-	start.push_back(start_0);
-	start.push_back(start_3);
-	start.push_back(start_4);
-	start.push_back(start_3);
-	start.push_back(start_0);
-	start.push_back(start_0);
-	start.push_back(start_0);
-	start.push_back(start_0);
 
-	images.push_back(imagePath_0);
-	images.push_back(imagePath_1);
-	images.push_back(imagePath_2);
-	images.push_back(imagePath_3);
-	images.push_back(imagePath_4);
-	images.push_back(imagePath_5);
-	images.push_back(imagePath_6);
-	images.push_back(imagePath_7);
-	images.push_back(imagePath_8);
-	images.push_back(imagePath_7);
-	images.push_back(imagePath_6);
-	images.push_back(imagePath_5);
-	images.push_back(imagePath_4);
-	images.push_back(imagePath_3);
-	images.push_back(imagePath_2);
-	images.push_back(imagePath_1);
-	images.push_back(imagePath_0);
+	// Instantiate a console object with a full-screen window
+	//Console console;
+	// Instantiate a console object with a sized window
+	//Console * console = new Console(-1,-1,101,40);
+	Console console(-1, -1, 101, 40);
 
+	//initialise UserActions
+	UserAction * keypress = new UserAction();
+	std::cout << keypress->m_keypress << " initialised" << std::endl;
 
+	// initialise GameAnimation Object
+	GameAnimations * GameAnime = new GameAnimations(&console, keypress);
 
+	/*******************************************************************
 	// intro
+	********************************************************************/
+	std::cout << " INTRO" << std::endl;
+	GameAnime->IntroAnime();
 
-	// display start screen
-	/*std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n                        Start\n\n" << std::endl;*/
-	//int c = 0;
-	//while(c ==0)
-	//{
-	std::thread t_listen(getUserInput);
-	t_listen.join();
-	anitmation(start);
+	/*******************************************************************
+		display start screen
+	********************************************************************/ 
+	// create a thread for user input, needs to run in the back ground
+	// while animation runs
+	std::thread t_listen_0(getUserInput, keypress);
+	t_listen_0;
+	std::cout << " START" << std::endl;
+	GameAnime->StartAnime();
+	
+	/*******************************************************************
+	   play game
+	********************************************************************/
+	std::cout << " Playing" << std::endl;
+	GameAnime->InGameAnime();
 
-	//}
-	// play game
-
-	// you died screen
-
-	// play again
+	/*******************************************************************
+	   you died screen
+	********************************************************************/
+	std::thread t_listen_1(getUserInput, keypress);
+	t_listen_1;
+	std::cout << keypress->m_keypress << " DIED" << std::endl;
+	GameAnime->YouDiedAnime();
+	/*******************************************************************
+	   play again
+	********************************************************************/
+	std::thread t_listen_2(getUserInput, keypress);
+	t_listen_2;
+	std::cout << keypress->m_keypress << " Play again" << std::endl;
+	GameAnime->PlayAgainAnime();
+	/*******************************************************************
+	  the end
+	********************************************************************/
+	std::thread t_listen_3(getUserInput, keypress);
+	t_listen_3;
+	GameAnime->JumpingBearAnime();
 
 	std::cout << "\n\nfinished\n\n" << std::endl;
-	return 0;
+
+	delete GameAnime;
+	delete keypress;
+	delete & console;
 }

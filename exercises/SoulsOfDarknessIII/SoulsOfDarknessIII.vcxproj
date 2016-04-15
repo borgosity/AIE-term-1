@@ -143,10 +143,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="animate.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="GameAnimations.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="UserAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animate.h" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="GameAnimations.h" />
+    <ClInclude Include="UserAction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
