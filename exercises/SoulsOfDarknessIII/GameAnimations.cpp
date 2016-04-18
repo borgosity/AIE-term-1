@@ -1,4 +1,5 @@
 #include "GameAnimations.h"
+#include <conio.h>
 
 //some text
 
@@ -187,8 +188,6 @@ void GameAnimations::animate(std::vector<LPCWSTR>& images, UserAction * keypress
 		int Style = 0;
 		int Exstyle = 0;
 
-		int loopCount = 0;
-
 		HWND A;
 		HBITMAP hBitmap;
 
@@ -202,9 +201,9 @@ void GameAnimations::animate(std::vector<LPCWSTR>& images, UserAction * keypress
 		LPCWSTR stat = L"static";
 		A = CreateWindowEx(Exstyle, stat, NULL, Style, X, Y, 0, 0, hConWnd, (HMENU)id, GetModuleHandle(0), NULL);
 
-		while (loopCount != 10)
+		while (!keypress->m_keypress)
 		{
-			//!keypress->m_keypress ||
+
 			for (unsigned int i = 0; i < images.size(); i++)
 			{
 				// Text contains filename
@@ -219,15 +218,15 @@ void GameAnimations::animate(std::vector<LPCWSTR>& images, UserAction * keypress
 				{
 					SetWindowPos(A, HWND_TOP, X, Y, W, H, SWP_DRAWFRAME);
 				}
-				std::cout << loopCount << std::endl;
-				std::cout << keypress->m_keypress << std::endl;
+				if (GetAsyncKeyState(VK_RETURN))
+				{
+					std::cout << " ENTER " << std::endl;
+					keypress->m_keypress = true;
+				}
 				std::this_thread::sleep_for(std::chrono::milliseconds(speed));
 				system("cls");
 			}
-			loopCount++;
-			std::cout << keypress->m_keypress << std::endl;
 		}
-
 		SendMessage(A, WM_CLOSE, 0, 0);
 		keypress->m_keypress = false;
 	}
@@ -304,4 +303,5 @@ void GameAnimations::DummyAnimation(int width, int height)
 	}
 	std::cout << " end animation \n\n" << std::endl;
 }
+
 

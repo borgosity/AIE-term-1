@@ -19,7 +19,7 @@
 void getUserInput(UserAction * keypress)
 {
 	int c = 0;
-	while (c == 0)
+	while (c != 13)
 	{
 		c = _getch();
 	}
@@ -56,8 +56,8 @@ void main()
 	********************************************************************/ 
 	// create a thread for user input, needs to run in the back ground
 	// while animation runs
-	std::thread t_listen_0(getUserInput, keypress);
-	t_listen_0;
+	//std::thread t_listen_0(getUserInput, keypress);
+	//t_listen_0;
 	std::cout << " START" << std::endl;
 	GameAnime->StartAnime();
 	
@@ -70,22 +70,22 @@ void main()
 	/*******************************************************************
 	   you died screen
 	********************************************************************/
-	std::thread t_listen_1(getUserInput, keypress);
-	t_listen_1;
+	//std::thread t_listen_1(getUserInput, keypress);
+	//t_listen_1;
 	std::cout << keypress->m_keypress << " DIED" << std::endl;
 	GameAnime->YouDiedAnime();
 	/*******************************************************************
 	   play again
 	********************************************************************/
-	std::thread t_listen_2(getUserInput, keypress);
-	t_listen_2;
+	//std::thread t_listen_2(getUserInput, keypress);
+	//t_listen_2;
 	std::cout << keypress->m_keypress << " Play again" << std::endl;
 	GameAnime->PlayAgainAnime();
 	/*******************************************************************
 	  the end
 	********************************************************************/
-	std::thread t_listen_3(getUserInput, keypress);
-	t_listen_3;
+	//std::thread t_listen_3(getUserInput, keypress);
+	//t_listen_3;
 	GameAnime->JumpingBearAnime();
 
 	std::cout << "\n\nfinished\n\n" << std::endl;
