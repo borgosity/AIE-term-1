@@ -33,10 +33,10 @@ void main()
 {
 
 	// Instantiate a console object with a full-screen window
-	//Console console;
+	Console console;
 	// Instantiate a console object with a sized window
 	//Console * console = new Console(-1,-1,101,40);
-	Console console(-1, -1, 101, 40);
+	//Console console(-1, -1, 101, 40);
 
 	//initialise UserActions
 	UserAction * keypress = new UserAction();
@@ -77,8 +77,8 @@ void main()
 	/*******************************************************************
 	   play again
 	********************************************************************/
-	//std::thread t_listen_2(getUserInput, keypress);
-	//t_listen_2;
+	std::thread t_listen_2(getUserInput, keypress);
+	t_listen_2;
 	std::cout << keypress->m_keypress << " Play again" << std::endl;
 	GameAnime->PlayAgainAnime();
 	/*******************************************************************
@@ -90,7 +90,7 @@ void main()
 
 	std::cout << "\n\nfinished\n\n" << std::endl;
 
-	delete GameAnime;
-	delete keypress;
-	delete & console;
+	//delete GameAnime;
+	//delete keypress;
+	//delete & console;
 }
