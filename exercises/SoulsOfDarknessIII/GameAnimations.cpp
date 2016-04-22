@@ -38,6 +38,9 @@ void GameAnimations::StartAnime()
 	LPCWSTR startPath_13 = L"images\\start\\start_red_0.bmp";
 	LPCWSTR startPath_14 = L"images\\start\\start_red_1.bmp";
 	LPCWSTR startPath_15 = L"images\\start\\start_red_2.bmp";
+	// key map images
+	LPCWSTR keymapPath = L"images\\start\\keyMap.bmp";
+	LPCWSTR keymapPathRed = L"images\\start\\keyMapRed.bmp";
 	// initialise image location vector
 	std::vector<LPCWSTR> start;
 	std::vector<LPCWSTR> start_1;
@@ -60,7 +63,7 @@ void GameAnimations::StartAnime()
 	start.push_back(startPath_2);
 	start.push_back(startPath_1);
 	start.push_back(startPath_0);
-
+	// push red vector
 	start_1.push_back(startPath_9);
 	start_1.push_back(startPath_10);
 	start_1.push_back(startPath_11);
@@ -80,6 +83,8 @@ void GameAnimations::StartAnime()
 	//DummyAnimation(m_keypress, m_conWidth, m_conHeight);
 	animate(start, m_keypress, m_conWidth, m_conHeight, 120);
 	animate(start_1, m_conWidth, m_conHeight, 120);
+	splashScreen(keymapPath, m_keypress, m_conWidth, m_conHeight);
+	splashScreen(keymapPathRed, m_conWidth, m_conHeight, 250);
 }
 
 void GameAnimations::StartAnimeOld()
@@ -93,6 +98,7 @@ void GameAnimations::StartAnimeOld()
 	LPCWSTR startPath_4 = L"images\\start\\start_24_red.bmp";
 	// initialise image location vector
 	std::vector<LPCWSTR> start;
+	std::vector<LPCWSTR> start1;
 	// push image locations onto vector
 	start.push_back(startPath_0);
 	start.push_back(startPath_0);
@@ -116,6 +122,7 @@ void GameAnimations::StartAnimeOld()
 	// animate the images, requires user input to finish so pass keypress
 	//DummyAnimation(m_keypress, m_conWidth, m_conHeight);
 	animate(start, m_keypress, m_conWidth, m_conHeight, 100);
+
 }
 
 void GameAnimations::InGameAnime()
@@ -421,6 +428,51 @@ void GameAnimations::splashScreen(LPCWSTR image, UserAction * keypress, int widt
 		//std::this_thread::sleep_for(std::chrono::milliseconds(speed));
 		//system("cls");
 		keypress->m_keypress = false;
+		SendMessage(A, WM_CLOSE, 0, 0);
+	}
+}
+
+void GameAnimations::splashScreen(LPCWSTR image, int width, int height, int time)
+{
+	static HWND  hConWnd;
+	hConWnd = GetConsoleWndHandle();
+	if (hConWnd)
+	{
+		int id = 123;
+		int X = 1;
+		int Y = 1;
+		int W = width;
+		int H = height;
+		int Res = 0;
+		int Style = 0;
+		int Exstyle = 0;
+
+		HWND A;
+		HBITMAP hBitmap;
+
+		// set default style
+		if (!Style)
+		{
+			Style = WS_CLIPSIBLINGS | WS_CHILD | WS_VISIBLE | SS_BITMAP | WS_TABSTOP;
+		}
+
+		// form for the image
+		LPCWSTR stat = L"static";
+		A = CreateWindowEx(Exstyle, stat, NULL, Style, X, Y, 0, 0, hConWnd, (HMENU)id, GetModuleHandle(0), NULL);
+
+		// Text contains filename
+		hBitmap = (HBITMAP)LoadImage(0, image, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+		// auto-adjust width and height
+		if (W || H)
+		{
+			hBitmap = (HBITMAP)CopyImage(hBitmap, IMAGE_BITMAP, W, H, LR_COPYRETURNORG);
+		}
+		SendMessage(A, (UINT)STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+		if (W || H)
+		{
+			SetWindowPos(A, HWND_TOP, X, Y, W, H, SWP_DRAWFRAME);
+		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(time));
 		SendMessage(A, WM_CLOSE, 0, 0);
 	}
 }
