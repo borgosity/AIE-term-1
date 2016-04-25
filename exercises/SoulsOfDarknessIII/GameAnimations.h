@@ -21,7 +21,7 @@ public:
 	void StartAnimeOld();
 	void InGameAnime();
 	void YouDiedAnime();
-	void PlayAgainAnime();
+	bool PlayAgainAnime();
 	void JumpingBearAnime();
 private:
 	HWND GetConsoleWndHandle(void);
@@ -29,11 +29,15 @@ private:
 	void animate(std::vector<LPCWSTR> & images, int width, int height, int speed);
 	void splashScreen(LPCWSTR image, UserAction * keypress, int width, int height);
 	void splashScreen(LPCWSTR image, int width, int height, int time);
+	void textOptions();
+	void arrowPress();
+	void enterPress();
 	void DummyAnimation(UserAction * keypress, int width, int height);
 	void DummyAnimation(int width, int height);
 	UserAction * m_keypress;
 	Console * m_console;
 	int m_conWidth;
 	int m_conHeight;
+	bool m_quitGame;
 };
 
