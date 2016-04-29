@@ -10,5 +10,6 @@ public:
 	bool m_playing;
 	bool m_options;
 	bool m_quit;
+	bool m_esc;
 };
 

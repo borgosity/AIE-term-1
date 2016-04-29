@@ -10,6 +10,7 @@ UserAction::UserAction()
 	m_options = false;
 	m_quit = false;
 	m_playing = false;
+	m_esc = false;
 }
 
 

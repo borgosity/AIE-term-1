@@ -25,7 +25,7 @@ void getUserInput(UserAction * keypress)
 	{
 		c = _getch();
 		// check for enter key
-		if (c == 13)
+		if (c == 13 && !keypress->m_playing)
 		{
 			keypress->m_keypress = true;
 		}
@@ -39,7 +39,11 @@ void getUserInput(UserAction * keypress)
 		{
 			keypress->m_DownPress = true;
 		}
-
+		if (c == 27)
+		{
+			keypress->m_esc = true;
+		}
+		//std::cout << c << std::endl;
 		c = 0;
 	}
 
