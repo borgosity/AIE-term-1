@@ -15,7 +15,9 @@
 #include "Console.h"
 #include "GameAnimations.h"
 
-
+/*******************************************************************
+// function for handling user keypresses in the console
+********************************************************************/
 void getUserInput(UserAction * keypress)
 {
 	int c = 0;
@@ -50,7 +52,6 @@ void gameLoop(GameAnimations * GameAnime, UserAction * keypress)
 	/*******************************************************************
 	// intro
 	********************************************************************/
-	//std::cout << " INTRO" << std::endl;
 	//GameAnime->IntroAnime();
 
 	while (!replay)
@@ -62,13 +63,12 @@ void gameLoop(GameAnimations * GameAnime, UserAction * keypress)
 		// while animation runs
 		std::thread t_listen_0(getUserInput, keypress);
 		t_listen_0.detach();
-		//std::cout << " START" << std::endl;
+		// run start animation
 		GameAnime->StartAnime();
 
 		/*******************************************************************
 		play game
 		********************************************************************/
-		//std::cout << " Playing" << std::endl;
 		keypress->m_playing = true;
 		GameAnime->InGameAnime();
 		keypress->m_playing = false;
@@ -76,23 +76,16 @@ void gameLoop(GameAnimations * GameAnime, UserAction * keypress)
 		/*******************************************************************
 		you died screen
 		********************************************************************/
-		//std::thread t_listen_1(getUserInput, keypress);
-		//t_listen_1;
-		//std::cout << keypress->m_keypress << " DIED" << std::endl;
 		GameAnime->YouDiedAnime();
+
 		/*******************************************************************
 		play again
 		********************************************************************/
-		//std::thread t_listen_2(getUserInput, keypress);
-		//t_listen_2;
-		//std::cout << keypress->m_keypress << " Play again" << std::endl;
 		replay = GameAnime->PlayAgainAnime();
 	}
 	/*******************************************************************
 	the end
 	********************************************************************/
-	//std::thread t_listen_3(getUserInput, keypress);
-	//t_listen_3;
 	GameAnime->JumpingBearAnime();
 }
 
