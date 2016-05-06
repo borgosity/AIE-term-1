@@ -8,6 +8,9 @@ UserAction::UserAction()
 	m_DownPress = false;
 	m_upPress = false;
 	m_options = false;
+	m_quit = false;
+	m_playing = false;
+	m_esc = false;
 }
 
 

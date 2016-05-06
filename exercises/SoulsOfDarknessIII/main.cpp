@@ -55,7 +55,9 @@ void gameLoop(GameAnimations * GameAnime, UserAction * keypress)
 		play game
 		********************************************************************/
 		//std::cout << " Playing" << std::endl;
+		keypress->m_playing = true;
 		GameAnime->InGameAnime();
+		keypress->m_playing = false;
 
 		/*******************************************************************
 		you died screen

@@ -18,7 +18,6 @@ public:
 	~GameAnimations();
 	void IntroAnime();
 	void StartAnime();
-	void StartAnimeOld();
 	void InGameAnime();
 	void YouDiedAnime();
 	bool PlayAgainAnime();
@@ -30,7 +29,7 @@ private:
 	void splashScreen(LPCWSTR image, UserAction * keypress, int width, int height);
 	void splashScreen(LPCWSTR image, int width, int height, int time);
 	void textOptions();
-	void arrowPress();
+	void arrowPress(UserAction * keypress);
 	void enterPress();
 	void DummyAnimation(UserAction * keypress, int width, int height);
 	void DummyAnimation(int width, int height);

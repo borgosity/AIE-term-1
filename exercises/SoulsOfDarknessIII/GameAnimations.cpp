@@ -88,50 +88,13 @@ void GameAnimations::StartAnime()
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
-//void GameAnimations::StartAnimeOld()
-//{
-//	// set image locations
-//	LPCWSTR startPath_ = L"images\\start\\start_edged.bmp";
-//	LPCWSTR startPath_0 = L"images\\start\\start_mono.bmp";
-//	LPCWSTR startPath_1 = L"images\\start\\start_16.bmp";
-//	LPCWSTR startPath_2 = L"images\\start\\start_24.bmp";
-//	LPCWSTR startPath_3 = L"images\\start\\start_16_red.bmp";
-//	LPCWSTR startPath_4 = L"images\\start\\start_24_red.bmp";
-//	// initialise image location vector
-//	std::vector<LPCWSTR> start;
-//	std::vector<LPCWSTR> start1;
-//	// push image locations onto vector
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_1);
-//	start.push_back(startPath_2);
-//	start.push_back(startPath_2);
-//	start.push_back(startPath_1);
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_3);
-//	start.push_back(startPath_4);
-//	start.push_back(startPath_3);
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_0);
-//	start.push_back(startPath_0);
-//	// animate the images, requires user input to finish so pass keypress
-//	//DummyAnimation(m_keypress, m_conWidth, m_conHeight);
-//	animate(start, m_keypress, m_conWidth, m_conHeight, 250);
-//
-//}
-
 void GameAnimations::InGameAnime()
 {
 	// castle images
 	LPCWSTR castlePath_0 = L"images\\play\\castle_2.bmp";
 	LPCWSTR castlePath_1 = L"images\\play\\castle_1.bmp";
 	LPCWSTR castlePath_2 = L"images\\play\\castle_0.bmp";
+	// moving closer
 	LPCWSTR castlePath_3 = L"images\\play\\castle_01.bmp";
 	LPCWSTR castlePath_4 = L"images\\play\\castle_02.bmp";
 	LPCWSTR castlePath_5 = L"images\\play\\castle_03.bmp";
@@ -165,6 +128,7 @@ void GameAnimations::InGameAnime()
 	LPCWSTR splatterPath_01 = L"images\\play\\splatter_1.bmp";
 	// initialise image location vector
 	std::vector<LPCWSTR> play_0;
+	std::vector<LPCWSTR> play_1;
 	std::vector<LPCWSTR> play;
 	// push image locations onto vector
 	play_0.push_back(castlePath_0);
@@ -173,14 +137,15 @@ void GameAnimations::InGameAnime()
 	play_0.push_back(castlePath_1);
 	play_0.push_back(castlePath_2);
 	play_0.push_back(castlePath_2);
-	play_0.push_back(castlePath_3);
-	play_0.push_back(castlePath_3);
-	play_0.push_back(castlePath_4);
-	play_0.push_back(castlePath_4);
-	play_0.push_back(castlePath_5);
-	play_0.push_back(castlePath_5);
-	play_0.push_back(castlePath_6);
-	play_0.push_back(castlePath_6);
+	// move closer
+	play_1.push_back(castlePath_3);
+	play_1.push_back(castlePath_3);
+	play_1.push_back(castlePath_4);
+	play_1.push_back(castlePath_4);
+	play_1.push_back(castlePath_5);
+	play_1.push_back(castlePath_5);
+	play_1.push_back(castlePath_6);
+	play_1.push_back(castlePath_6);
 	// fight
 	play.push_back(bossPath_00);
 	play.push_back(bossPath_01);
@@ -209,6 +174,11 @@ void GameAnimations::InGameAnime()
 	// animate the images, no user input required
 	// walk path
 	animate(play_0, m_conWidth, m_conHeight, 250);
+	splashScreen(castlePath_2, m_keypress, m_conWidth, m_conHeight);
+	splashScreen(castlePath_3, m_keypress, m_conWidth, m_conHeight);
+	splashScreen(castlePath_4, m_keypress, m_conWidth, m_conHeight);
+	splashScreen(castlePath_5, m_keypress, m_conWidth, m_conHeight);
+	splashScreen(castlePath_6, m_keypress, m_conWidth, m_conHeight);
 	// fight
 	animate(play, m_conWidth, m_conHeight, 100);
 	//DummyAnimation(m_conWidth, m_conHeight);
@@ -244,6 +214,7 @@ void GameAnimations::JumpingBearAnime()
 	LPCWSTR bearPath_7 = L"images\\bear\\image_7.bmp";
 	LPCWSTR bearPath_8 = L"images\\bear\\image_8.bmp";
 	LPCWSTR startPath_15 = L"images\\start\\start_red_21.bmp";
+	LPCWSTR splatterPath_00 = L"images\\play\\splatter_0.bmp";
 	// initialise image location vector
 	std::vector<LPCWSTR> bear;
 	// push image locations onto vector
@@ -266,6 +237,7 @@ void GameAnimations::JumpingBearAnime()
 	bear.push_back(bearPath_1);
 	bear.push_back(bearPath_0);
 	bear.push_back(startPath_15);
+	bear.push_back(splatterPath_00);
 	// animate the images
 	animate(bear, m_keypress, m_conWidth, m_conHeight, 40);
 }
@@ -395,7 +367,7 @@ void GameAnimations::animate(std::vector<LPCWSTR>& images, int width, int height
 	}
 }
 
-void GameAnimations::arrowPress()
+void GameAnimations::arrowPress(UserAction * keypress)
 {
 	int pressU_old = 0;
 	int pressU_new = 0;
@@ -434,8 +406,15 @@ void GameAnimations::arrowPress()
 		{
 			//std::cout << " UP " << std::endl;
 			// display no selected
-			m_quitGame = false;
-			textOptions();
+			if (keypress->m_playing)
+			{
+				keypress->m_keypress = true;
+			}
+			else
+			{
+				m_quitGame = false;
+				textOptions();
+			}
 		}
 		pressD_old = pressD_new;
 	}
@@ -493,32 +472,34 @@ void GameAnimations::splashScreen(LPCWSTR image, UserAction * keypress, int widt
 		// form for the image
 		LPCWSTR stat = L"static";
 		A = CreateWindowEx(Exstyle, stat, NULL, Style, X, Y, 0, 0, hConWnd, (HMENU)id, GetModuleHandle(0), NULL);
-
-		// Text contains filename
-		hBitmap = (HBITMAP)LoadImage(0, image, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-		// auto-adjust width and height
-		if (W || H)
-		{
-			hBitmap = (HBITMAP)CopyImage(hBitmap, IMAGE_BITMAP, W, H, LR_COPYRETURNORG);
-		}
-		SendMessage(A, (UINT)STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
-		if (W || H)
-		{
-			SetWindowPos(A, HWND_TOP, X, Y, W, H, SWP_DRAWFRAME);
-		}
-		if (keypress->m_options)
-		{
-			textOptions();
-		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		while (!keypress->m_keypress)
 		{
+			// Text contains filename
+			hBitmap = (HBITMAP)LoadImage(0, image, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+			// auto-adjust width and height
+			if (W || H)
+			{
+				hBitmap = (HBITMAP)CopyImage(hBitmap, IMAGE_BITMAP, W, H, LR_COPYRETURNORG);
+			}
+			SendMessage(A, (UINT)STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+			if (W || H)
+			{
+				SetWindowPos(A, HWND_TOP, X, Y, W, H, SWP_DRAWFRAME);
+			}
+			if (keypress->m_options)
+			{
+				textOptions();
+			}
 			enterPress();
 			if (keypress->m_options)
 			{
-				arrowPress();
+				arrowPress(keypress);
 			}
-
+			if (keypress->m_playing)
+			{
+				arrowPress(keypress);
+			}
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		}
 		//std::this_thread::sleep_for(std::chrono::milliseconds(speed));
 		//system("cls");
