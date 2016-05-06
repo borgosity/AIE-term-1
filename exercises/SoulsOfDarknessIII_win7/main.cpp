@@ -111,8 +111,4 @@ void main()
 	gameLoop(GameAnime, keypress);
 
 	std::cout << "\n\nfinished\n\n" << std::endl;
-
-	//delete GameAnime;
-	//delete keypress;
-	//delete & console;
 }
